@@ -26,13 +26,13 @@ export const AboutUser: FC<AboutUserType> = ({
 }) => {
 	return (
 		<Row>
-			<Col md={4}>
+			<Col md={4} className='mb-4'>
 				<Card className='p-3'>
 					<img src={avatar_url} alt='Avatar' />
 				</Card>
 			</Col>
 			<Col>
-				<Col md={12}>
+				<Col md={12} className='mb-4'>
 					<Card className='p-3'>
 						{login !== null && <div className='my-1'>Login: {login}</div>}
 						{name !== null && <div className='my-1'>Name: {name}</div>}

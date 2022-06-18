@@ -1,28 +1,10 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { Card, Col, Table } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
+import { v4 } from 'uuid'
+import api from '../../core/api'
 import { AboutUser } from './AboutUser'
 import { Repos } from './Repos'
-import { Card, Col, Table } from 'react-bootstrap'
-import { v4 } from 'uuid'
-
-/*
-+ login
-+ name
-+ email
-public_repos
-+ followers
-+ following
-+ avatar_url
-+ html_url
-
-repos_url
-*/
-
-/*
-name
-html_url
-clone_url
-*/
 
 export const User = () => {
 	const [userData, setUserData] = useState({
@@ -37,11 +19,12 @@ export const User = () => {
 		bio: '',
 	})
 	const [reposData, setReposData] = useState<any[]>([])
+	const { login } = useParams()
 
 	useEffect(() => {
 		async function getUser() {
 			try {
-				const res = await axios.get(`https://api.github.com/users/illia-com`)
+				const res = await api.get(`/users/${login}`)
 				await setUserData({
 					login: res.data.login,
 					name: res.data.name,
@@ -53,16 +36,12 @@ export const User = () => {
 					blog: res.data.blog,
 					bio: res.data.bio,
 				})
-				const resRepos = await axios.get(
-					`https://api.github.com/users/illia-com/repos`
-				)
+				const resRepos = await api.get(`users/${login}/repos`)
 				const resItems: any[] = []
-
 				await resRepos.data.map((resItem: any) =>
 					resItems.push({
 						name: resItem.name,
 						html_url: resItem.html_url,
-						clone_url: resItem.clone_url,
 						full_name: resItem.full_name,
 					})
 				)
@@ -77,14 +56,13 @@ export const User = () => {
 	return (
 		<>
 			<AboutUser {...userData} />
-			<Col className='mt-4'>
+			<Col className='mb-4'>
 				<Card className='p-3'>
 					<Table striped bordered hover>
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>GitHub</th>
-								<th>HTTPS</th>
+								<th>Name repositories</th>
+								<th className='d-none d-md-block'>GitHub</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
 import {
 	Navbar,
 	Container,
@@ -8,8 +8,15 @@ import {
 	Button,
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-export const Menu = () => {
+interface MenuType {
+	searchUser: string
+	setSearchUser: Dispatch<SetStateAction<string>>
+}
+
+export const Menu: FC<MenuType> = ({ searchUser, setSearchUser }) => {
+	const navigate = useNavigate()
 	return (
 		<Navbar bg='light' expand='lg' className='mb-3'>
 			<Container fluid='md'>
@@ -22,20 +29,24 @@ export const Menu = () => {
 				<Navbar.Collapse id='navbarScroll'>
 					<Nav className='me-auto my-2 my-lg-0' navbarScroll>
 						<LinkContainer to='/'>
-							<Nav.Link>Home</Nav.Link>
-						</LinkContainer>
-						<LinkContainer to='/user'>
-							<Nav.Link>UserTest</Nav.Link>
+							<Nav.Link className='ml-5'>Home</Nav.Link>
 						</LinkContainer>
 					</Nav>
 					<Form className='d-flex'>
 						<FormControl
-							type='search'
+							type='text'
+							value={searchUser}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								navigate('/')
+								setSearchUser(e.target.value)
+							}}
 							placeholder='Search'
 							className='me-2'
 							aria-label='Search'
 						/>
-						<Button variant='outline-success'>Search</Button>
+						<Button variant='outline-success' onClick={() => setSearchUser('')}>
+							Clear
+						</Button>
 					</Form>
 				</Navbar.Collapse>
 			</Container>
