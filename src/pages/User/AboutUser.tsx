@@ -48,7 +48,7 @@ export const AboutUser: FC<AboutUserType> = ({
 
 						<Stack direction='horizontal' gap={2} className='my-1'>
 							<img
-								src='https://cdn-icons.flaticon.com/png/512/2686/premium/2686080.png?token=exp=1655484047~hmac=fa9d6847b80e127f866c78e4e79c0bd4'
+								src='https://img.icons8.com/material-rounded/24/null/conference-call.png'
 								alt='followers'
 								style={{
 									height: '20px',
@@ -56,7 +56,7 @@ export const AboutUser: FC<AboutUserType> = ({
 							/>
 							<div>{followers} followers</div>
 							<img
-								src='https://cdn-icons-png.flaticon.com/512/7542/7542137.png'
+								src='https://img.icons8.com/material-rounded/24/null/user.png'
 								alt='following'
 								style={{
 									height: '20px',
